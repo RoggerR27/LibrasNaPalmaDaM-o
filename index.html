@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprenda Libras</title>
+    <!-- Estilos CSS -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            color: #fff;
+        }
+
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .instructions, .welcome-screen, .expression-buttons {
+            display: none;
+        }
+
+        .instructions.active, .welcome-screen.active, .expression-buttons.active {
+            display: block;
+        }
+
+        .welcome-screen {
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .welcome-screen h1 {
+            font-size: 3em;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .welcome-screen button {
+            background: #fff;
+            border: 2px solid #4facfe;
+            border-radius: 5px;
+            padding: 15px 30px;
+            font-size: 1.5em;
+            color: #4facfe;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .welcome-screen button:hover {
+            background: #4facfe;
+            color: #fff;
+        }
+
+        .instructions h2, .video-section h2, .expressions h2 {
+            font-size: 1.5em;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .instructions p, .video-section p {
+            font-size: 1.2em;
+            color: #fff;
+        }
+
+        .video-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        video {
+            max-width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .expressions {
+            text-align: center;
+        }
+
+        .expression-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .expression-buttons button {
+            background: #fff;
+            border: 2px solid #4facfe;
+            border-radius: 5px;
+            padding: 10px 15px;
+            font-size: 1.2em;
+            color: #4facfe;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .expression-buttons button:hover {
+            background: #4facfe;
+            color: #fff;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Aprenda Libras</h1>
+        </header>
+        <main>
+            <div id="welcome-screen" class="welcome-screen active">
+                <h1>Bem-vindo ao Aprenda Libras!</h1>
+                <button onclick="startLearning()">Vamos começar a aprender</button>
+            </div>
+            <section id="instructions" class="instructions">
+                <h2>Instruções</h2>
+                <p id="instruction-text">Selecione uma expressão para ver as instruções.</p>
+            </section>
+            <section class="video-section">
+                <h2>Vídeo</h2>
+                <video id="instruction-video" controls>
+                    <source id="video-source" src="videos/video-placeholder.mp4" type="video/mp4">
+                    Seu navegador não suporta o elemento de vídeo.
+                </video>
+            </section>
+            <section class="expressions">
+                <h2>Expressões</h2>
+                <div id="expression-buttons" class="expression-buttons">
+                    <button onclick="showInstructions('muito')">Muito</button>
+                    <button onclick="showInstructions('obrigado')">Obrigado</button>
+                    <button onclick="showInstructions('eu_amo_voce')">Eu Amo Você</button>
+                    <button onclick="showInstructions('sim')">Sim</button>
+                    <button onclick="showInstructions('nao_poder')">Não poder</button>
+                    <button onclick="showInstructions('por_favor')">Por Favor</button>
+                    <button onclick="showInstructions('desculpe')">Desculpe</button>
+                    <button onclick="showInstructions('bom_dia')">Bom Dia</button>
+                    <button onclick="showInstructions('boa_tarde')">Boa Tarde</button>
+                    <button onclick="showInstructions('boa_noite')">Boa Noite</button>
+                    <button onclick="showInstructions('com_licenca')">Com Licença</button>
+                    <button onclick="showInstructions('tchau')">Tchau</button>
+                    <button onclick="showInstructions('eu_gosto')">Eu Gosto</button>
+                    <button onclick="showInstructions('eu_quero')">Eu Quero</button>
+                    <button onclick="showInstructions('eu_preciso_de_voce')">Eu Preciso de você</button>
+                    <button onclick="showInstructions('eu_nao_sei')">Eu Não Sei</button>
+                    <button onclick="showInstructions('ta_eu_entendo')">ta eu Entendi</button>
+                    <button onclick="showInstructions('eu_sei')">Eu Sei</button>
+                    <button onclick="showInstructions('eu_posso_te_ajudar')">Eu Posso Te Ajudar</button>
+                    <button onclick="showInstructions('voce_precisa_de_ajuda')">Você Precisa de Ajuda?</button>
+                    <button onclick="showInstructions('estou_bem')">Estou Bem</button>
+                </div>
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2024 Aprenda Libras. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+    <script>
+        function startLearning() {
+            document.getElementById('welcome-screen').classList.remove('active');
+            document.getElementById('instructions').classList.add('active');
+            document.getElementById('expression-buttons').classList.add('active');
+        }
+
+        function showInstructions(expression) {
+            const instructionText = document.getElementById("instruction-text");
+            const instructionVideo = document.getElementById("instruction-video");
+            const videoSource = document.getElementById("video-source");
+
+            switch (expression) {
+                case 'muito':
+                    instructionText.innerHTML = `
+                        <p>1. Abra a mão.</p>
+                        <p>2. Feche a mão fazendo um sinal de 'coxinha'.</p>
+                        <p>3. Repita o processo utilizando as duas mãos.</p>
+                    `;
+                    videoSource.src = 'videos/video_muito.mp4';
+                    break;
+                case 'obrigado':
+                    instructionText.innerHTML = `
+                        <p>1. Abra a mão.</p>
+                        <p>2. Coloque a palma da mão em sua testa.</p>
+                        <p>3. E faça o movimento em direção a pessoa.</p>
+                    `;
+                    videoSource.src = 'videos/video_obrigado.mp4';
+                    break;
+                case 'eu_amo_voce':
+                    instructionText.innerHTML = `
+                        <p>1. Abaixe o dedo médio e anelar.</p>
+                        <p>2. Aponte para a pessoa que você está se referindo.</p>
+                    `;
+                    videoSource.src = 'videos/video_eu_amo_voce.mp4';
+                    break;
+                case 'sim':
+                    instructionText.innerHTML = `
+                        <p>1. deixe a mão em fomato de (S) linguagem de sinais  'ok'.</p>
+                        <p>2. Mova a cabeça e a mão em sentido de afirmação.</p>
+                    `;
+                    videoSource.src = 'videos/video_sim.mp4';
+                    break;
+                case 'nao poder':
+                    instructionText.innerHTML = `
+                        <p>1. aponte em direção a garganta.</p>
+                    `;
+                    videoSource.src = 'videos/video_nao_poder.mp4';
+                    break;
+                case 'por_favor':
+                    instructionText.innerHTML = `
+                        <p>1. abra as mãos e junte a ponta dos dedos.</p>
+                        <p>2. junte a ponta dos dedos.</p>
+                        <p>3. Coloque nos peitos e aponte à pessoa.</p>
+                    `;
+                    videoSource.src = 'videos/video_por_favor.mp4';
+                    break;
+                case 'desculpe':
+                    instructionText.innerHTML = `
+                        <p>1. Faça um "Hang Lose" com a mão direita.</p>
+                        <p>2. E coloque em baixo do queixo.</p>
+                    `;
+                    videoSource.src = 'videos/video_desculpe.mp4';
+                    break;
+                case 'bom_dia':
+                    instructionText.innerHTML = `
+                        <p>1. feche uma mão em formato de coxinha.</p>
+                        <p>2. coloque em direção da boca abra.</p>
+                        <p>3. levante o indicador e deixe os outros juntos com o polegar e leve a testa.</p>
+                        <p>4. Leve a mão para cima.</p>
+                    `;
+                    videoSource.src = 'videos/video_bom_dia.mp4';
+                    break;
+                case 'boa_tarde':
+                    instructionText.innerHTML = `
+                        <p>1. feche uma mão em formato de coxinha.</p>
+                        <p>2. coloque em direção da boca abra.</p>
+                        <p>3. abra a mão e deixe a palma da mão virada para a pessoa.</p>
+                        <p>4. abaixe a mão em sentido ao chão.</p>
+                    `;
+                    videoSource.src = 'videos/video_boa_tarde.mp4';
+                    break;
+                case 'boa_noite':
+                    instructionText.innerHTML = `
+                        <p>1. feche uma mão em formato de coxinha.</p>
+                        <p>2. coloque em direção da boca abra.</p>
+                        <p>3. levante a outra mão e feche ela (punho).</p>
+                        <p>4. Passe a outra mão em cima da mão em punho.</p>
+                    `;
+                    videoSource.src = 'videos/video_boa_noite.mp4';
+                    break;
+                case 'com_licenca':
+                    instructionText.innerHTML = `
+                        <p>1. abra as mãos e junte a ponta dos dedos.</p>
+                        <p>2. coloque em direção o peito e empurre para frente.</p>
+                    `;
+                    videoSource.src = 'videos/video_com_licenca.mp4';
+                    break;
+                case 'tchau':
+                    instructionText.innerHTML = `
+                        <p>1. Abra e feche a mão direita.</p>
+                        <p>2. Faça um movimento de 'adeus'.</p>
+                    `;
+                    videoSource.src = 'videos/video_tchau.mp4';
+                    break;
+                case 'eu_gosto':
+                    instructionText.innerHTML = `
+                        <p>1. Coloque a mão direita sobre o peito.</p>
+                        <p>2. Faça um movimento como se fosse massagear a região.</p>
+                    `;
+                    videoSource.src = 'videos/video_eu_gosto.mp4';
+                    break;
+                case 'eu_quero':
+                    instructionText.innerHTML = `
+                        <p>1. Estenda as duas mãos como se fosse pegar algo.</p>
+                        <p>2. Puxe para você.</p>
+                    `;
+                    videoSource.src = 'videos/video_eu_quero.mp4';
+                    break;
+                case 'eu_preciso':
+                    instructionText.innerHTML = `
+                        <p>1. Aponte para o peito com o dedo indicador.</p>
+                        <p>2. Depois feche as mãos e balanvem pra cima e para baixo'.</p>
+                        <p>3. Aponte para a pessoa.</p>
+                        <p>4. Repita mais uma vez.</p>
+                    `;
+                    videoSource.src = 'videos/video_eu_preciso_de_voce.mp4';
+                    break;
+                case 'eu_nao_sei':
+                    instructionText.innerHTML = `
+                        <p>1. Pegue o dedo indicador e polegar e junte.</p>
+                        <p>2. Faça um movimento de (U) com o dedo.</p>
+                        <p>3. pegue o dedo do meio e coloque na testa.</p>
+                        <p>3. Aponte para frente.</p>
+                    `;
+                    videoSource.src = 'videos/video_eu_nao_sei.mp4';
+                    break;
+                case 'eu_entendo':
+                    instructionText.innerHTML = `
+                        <p>1. faça um joinha.</p>
+                        <p>2. Coloque a mão direita sobre a testa.</p>
+                        <p>3. Balance a mão.</p>
+                    `;
+                    videoSource.src = 'videos/video_Ta_entendo.mp4';
+                    break;
+                case 'eu_sei':
+                    instructionText.innerHTML = `
+                        <p>1. Pegue a mão direita e aponte para você.</p>
+                        <p>2. Fique tocando em sua testa.</p>
+                    `;
+                    videoSource.src = 'videos/video_eu_sei.mp4';
+                    break;
+                case 'eu_posso_te_ajudar':
+                    instructionText.innerHTML = `
+                        <p>1. Estenda a mão direita na vertical com o lado da palma virada pra pessoa.</p>
+                        <p>2. Pegue a mão esquerda e colocque na horizontal na direção do pulso'.</p>
+                        <p>3. feche as duas mãos e traga para você.</p>
+                    `;
+                    videoSource.src = 'videos/video_eu_posso_te_ajudar.mp4';
+                    break;
+                case 'voce_precisa_de_ajuda':
+                    instructionText.innerHTML = `
+                        <p>1. feche as mãos e balance para cima e para baixo.</p>
+                        <p>2. Faça um joinha com uma mão e com a outra abra a mão e coloque em baixo.</p>
+                        <p>3. Aponte para a pessoa.</p>
+                    `;
+                    videoSource.src = 'videos/video_voce_precisa_de_ajuda.mp4';
+                    break;
+                case 'estou_bem':
+                    instructionText.innerHTML = `
+                        <p>1. aponte para você.</p>
+                        <p>2. faça com uma coxinha vá em direção a boca.</p>
+                        <p>3. Abaixe a mão desfazendo a coxinha.</p>
+                    `;
+                    videoSource.src = 'videos/video_estou_bem.mp4';
+                    break;
+                // Adicione casos adicionais para cada expressão
+                default:
+                    instructionText.innerHTML = "Instruções não disponíveis.";
+                    videoSource.src = 'videos/video-placeholder.mp4';
+            }
+
+            instructionVideo.load();
+            document.getElementById('instructions').classList.add('active');
+        }
+    </script>
+</body>
+</html>
